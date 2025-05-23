@@ -1,0 +1,23 @@
+<launch>
+
+    <arg name="default_world" default="false"/>
+    <!-- <arg name="world_filename" default="$(find argo3_simulation_description)/worlds/argo_two_tracks_with_low_portal_and_obstacles.world"/> -->
+    <arg name="world_filename" default="$(find argo3_simulation_description)/worlds/argo_ice_front_train_v1.world"/>
+    <!-- <arg name="world_filename" default="$(find argo3_simulation_description)/worlds/argo_ice_front_train_v2.world"/> -->
+
+    <group if="$(arg default_world)">
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="paused" value="true"/>
+            <arg name="use_sim_time" value="true"/>
+            <arg name="gui" value="true"/>
+        </include>
+    </group>
+    <group unless="$(arg default_world)">
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(arg world_filename)"/>
+            <arg name="paused" value="true"/>
+            <arg name="use_sim_time" value="true"/>
+            <arg name="gui" value="true"/>
+        </include>
+    </group>
+</launch>
